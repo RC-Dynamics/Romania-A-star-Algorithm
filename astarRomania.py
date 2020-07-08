@@ -1,12 +1,10 @@
 #
-#   Created by PyCharm.
 #   User: Rizky Andre Wibisono
-#   Date: 17/03/2019
-#   Time: 20:59
 #
+# Modified by: Lucas Cavalcanti and Roberto Fernandes
 
 import heapq
-
+import random
 
 class priorityQueue:
     def __init__(self):
@@ -36,7 +34,6 @@ class ctNode:
 
 romania = {}
 
-
 def makedict():
     file = open("romania.txt", 'r')
     for string in file:
@@ -48,7 +45,7 @@ def makedict():
         romania.setdefault(ct2, []).append(ctNode(ct1, dist))
 
 
-def makehuristikdict():
+def make_huristik_dict():
     h = {}
     with open("romania_sld.txt", 'r') as file:
         for line in file:
@@ -67,12 +64,13 @@ def astar(start, end):
     path = {}
     distance = {}
     q = priorityQueue()
-    h = makehuristikdict()
+    h = make_huristik_dict()
 
     q.push(start, 0)
     distance[start] = 0
     path[start] = None
     expandedList = []
+    printoutput(start, end, path, distance, expandedList, 0)
 
     while (q.isEmpty() == False):
         current = q.pop()
@@ -84,18 +82,17 @@ def astar(start, end):
         for new in romania[current]:
             g_cost = distance[current] + int(new.distance)
 
-            # print(new.city, new.distance, "now : " + str(distance[current]), g_cost)
-
             if (new.city not in distance or g_cost < distance[new.city]):
                 distance[new.city] = g_cost
                 f_cost = g_cost + heuristic(new.city, h)
                 q.push(new.city, f_cost)
                 path[new.city] = current
+        printoutput(start, end, path, distance, expandedList, 1)
 
-    printoutput(start, end, path, distance, expandedList)
+    printoutput(start, end, path, distance, expandedList, 2)
 
 
-def printoutput(start, end, path, distance, expandedlist):
+def printoutput(start, end, path, distance, expandedlist, stage):
     finalpath = []
     i = end
 
@@ -104,21 +101,27 @@ def printoutput(start, end, path, distance, expandedlist):
         i = path[i]
     finalpath.append(start)
     finalpath.reverse()
-    print("Program algoritma Astar untuk masalah Romania")
-    print("\tArad => Bucharest")
-    print("=======================================================")
-    print("Kota yg mungkin dijelajah \t\t: " + str(expandedlist))
-    print("Jumlah kemungkinan kota \t\t: " + str(len(expandedlist)))
-    print("=======================================================")
-    print("Kota yg dilewati dg jarak terpendek\t: " + str(finalpath))
-    print("Jumlah kota yang dilewati \t\t\t: " + str(len(finalpath)))
-    print("Total jarak \t\t\t\t\t\t: " + str(distance[end]))
+    if stage == 0:
+        print("\nPrograma com busca herística A* no mapa da Romenia\n")
+        print("\t" + str(start) + " => Bucharest\n")
+        print("=======================================================\n")
+    elif stage == 1:
+        print("Fronteira de Busca \t\t: " + str(expandedlist))
+        print("Número de cidades na fronteira \t\t: " + str(len(expandedlist)))
+    elif stage == 2:
+        print("\n=======================================================\n")
+        print("Menor caminho \t: " + str(finalpath))
+        print("Número de cidade visitas \t\t\t: " + str(len(finalpath)))
+        print("Distância total percorrida \t\t\t: " + str(distance[end]) + "\n\n")
 
 
 def main():
-    src = "Arad"
-    dst = "Bucharest"
     makedict()
+    src = "Bucharest"
+    dst = "Bucharest"
+    while src == dst: 
+        s, d = random.choice(list(romania.items()))
+        src = str(d[0].city)
     astar(src, dst)
 
 
