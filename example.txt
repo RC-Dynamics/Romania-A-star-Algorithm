@@ -1,0 +1,30 @@
+Programa com busca herística A* no mapa da Romenia
+
+	Arad => Bucharest
+
+=======================================================
+
+Fronteira de Busca 		: [(393, 'Sibiu'), (447, 'Timisoara'), (449, 'Zerind')]
+Cidades Expandidas 		: ['Arad']  #1
+
+Fronteira de Busca 		: [(413, 'Rimnicu Vilcea'), (415, 'Fagaras'), (447, 'Timisoara'), (449, 'Zerind'), (671, 'Oradea')]
+Cidades Expandidas 		: ['Arad', 'Sibiu']  #2
+
+Fronteira de Busca 		: [(415, 'Fagaras'), (417, 'Pitesti'), (447, 'Timisoara'), (449, 'Zerind'), (526, 'Craiova'), (671, 'Oradea')]
+Cidades Expandidas 		: ['Arad', 'Sibiu', 'Rimnicu Vilcea']  #3
+
+Fronteira de Busca 		: [(417, 'Pitesti'), (447, 'Timisoara'), (449, 'Zerind'), (450, 'Bucharest'), (526, 'Craiova'), (671, 'Oradea')]
+Cidades Expandidas 		: ['Arad', 'Sibiu', 'Rimnicu Vilcea', 'Fagaras']  #4
+
+Fronteira de Busca 		: [(418, 'Bucharest'), (447, 'Timisoara'), (449, 'Zerind'), (450, 'Bucharest'), (526, 'Craiova'), (671, 'Oradea')]
+Cidades Expandidas 		: ['Arad', 'Sibiu', 'Rimnicu Vilcea', 'Fagaras', 'Pitesti']  #5
+
+Fronteira de Busca 		: [(447, 'Timisoara'), (449, 'Zerind'), (450, 'Bucharest'), (526, 'Craiova'), (671, 'Oradea')]
+Cidades Expandidas 		: ['Arad', 'Sibiu', 'Rimnicu Vilcea', 'Fagaras', 'Pitesti', 'Bucharest']  #6
+
+
+=======================================================
+
+Menor caminho 	: ['Arad', 'Sibiu', 'Rimnicu Vilcea', 'Pitesti', 'Bucharest']
+Número de cidade visitas 			: 5
+Distância total percorrida 			: 418

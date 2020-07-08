@@ -14,7 +14,10 @@ class priorityQueue:
         heapq.heappush(self.cities, (cost, city))
 
     def pop(self):
-        return heapq.heappop(self.cities)[1]
+        return heapq.heappop(self.cities)
+    
+    def border(self):
+        return sorted(self.cities)
 
     def isEmpty(self):
         if (self.cities == []):
@@ -65,15 +68,15 @@ def astar(start, end):
     distance = {}
     q = priorityQueue()
     h = make_huristik_dict()
-
+    border = {}
     q.push(start, 0)
     distance[start] = 0
     path[start] = None
     expandedList = []
-    printoutput(start, end, path, distance, expandedList, 0)
+    printoutput(start, end, path, distance, expandedList, q, 0)
 
     while (q.isEmpty() == False):
-        current = q.pop()
+        current = q.pop()[1]
         expandedList.append(current)
 
         if (current == end):
@@ -81,34 +84,33 @@ def astar(start, end):
 
         for new in romania[current]:
             g_cost = distance[current] + int(new.distance)
-
             if (new.city not in distance or g_cost < distance[new.city]):
                 distance[new.city] = g_cost
                 f_cost = g_cost + heuristic(new.city, h)
                 q.push(new.city, f_cost)
                 path[new.city] = current
-        printoutput(start, end, path, distance, expandedList, 1)
+        printoutput(start, end, path, distance, expandedList, q, 1)
 
-    printoutput(start, end, path, distance, expandedList, 2)
+    printoutput(start, end, path, distance, expandedList, q, 2)
 
 
-def printoutput(start, end, path, distance, expandedlist, stage):
+def printoutput(start, end, path, distance, expandedlist, q, stage):
     finalpath = []
     i = end
 
-    while (path.get(i) != None):
-        finalpath.append(i)
-        i = path[i]
-    finalpath.append(start)
-    finalpath.reverse()
     if stage == 0:
         print("\nPrograma com busca herística A* no mapa da Romenia\n")
         print("\t" + str(start) + " => Bucharest\n")
         print("=======================================================\n")
-    elif stage == 1:
-        print("Fronteira de Busca \t\t: " + str(expandedlist))
-        print("Número de cidades na fronteira \t\t: " + str(len(expandedlist)))
-    elif stage == 2:
+    elif stage > 0:
+        print("Fronteira de Busca \t\t: " + str(q.border()))
+        print("Cidades Expandidas \t\t: " + str(expandedlist) + "  #" + str(len(expandedlist)) + "\n")
+    if stage == 2:
+        while (path.get(i) != None):
+            finalpath.append(i)
+            i = path[i]
+        finalpath.append(start)
+        finalpath.reverse()
         print("\n=======================================================\n")
         print("Menor caminho \t: " + str(finalpath))
         print("Número de cidade visitas \t\t\t: " + str(len(finalpath)))
