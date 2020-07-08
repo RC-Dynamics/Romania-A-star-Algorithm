@@ -68,7 +68,6 @@ def astar(start, end):
     distance = {}
     q = priorityQueue()
     h = make_huristik_dict()
-    border = {}
     q.push(start, 0)
     distance[start] = 0
     path[start] = None
@@ -122,8 +121,8 @@ def main():
     src = "Bucharest"
     dst = "Bucharest"
     while src == dst: 
-        s, d = random.choice(list(romania.items()))
-        src = str(d[0].city)
+        s = random.choice(list(romania.items()))[0]
+        src = str(s)
     astar(src, dst)
 
 
