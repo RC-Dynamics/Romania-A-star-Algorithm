@@ -1,7 +1,7 @@
 # Romania-A*-Algorithm
 Adaptive Cognitive Agents Class
 
-## Output of program:
+## Output:
 Programa com busca herística A* no mapa da Romenia
 
         Lugoj => Bucharest
