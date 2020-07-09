@@ -98,7 +98,7 @@ def printoutput(start, end, path, distance, expandedlist, q, stage):
     i = end
 
     if stage == 0:
-        print("\nPrograma com busca herística A* no mapa da Romenia\n")
+        print("\nPrograma com busca heurística A* no mapa da Romênia\n")
         print("\t" + str(start) + " => Bucharest\n")
         print("=======================================================\n")
     elif stage > 0:
